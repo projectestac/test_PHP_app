@@ -70,7 +70,9 @@ function test_ldap($username, $env = 'INT') {
     show_header('Test LDAP for '.$username);
 
     $ldapconfig = sp_get_ldap_config($env);
-
+    if (!$ldapconfig) {
+        return;
+    }
     $host = $ldapconfig->host_url;
     $version = $ldapconfig->ldap_version;
     $binddn = $ldapconfig->bind_dn;

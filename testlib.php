@@ -7,8 +7,8 @@ require_once('ldap.lib.php');
 require_once('server.lib.php');
 require_once('db.lib.php');
 
-set_exception_handler('exception_handler');
-function exception_handler($exception) {
+set_exception_handler('sp_exception_handler');
+function sp_exception_handler($exception) {
     show_error("Uncaught exception: " , $exception->getMessage());
 }
 
