@@ -49,13 +49,13 @@ function test_proxy($url) {
     }
 }
 
-function test_server() {
+function test_server($correct_timezone='Europe/Madrid') {
     show_header('test_server');
     show_object($_SERVER);
 
     // Check timezone and date
     $timezone = date_default_timezone_get();
-    if ($timezone === 'Europe/Madrid') {
+    if ($timezone === $correct_timezone) {
         show_success('Server timezone is OK: '.$timezone);
     } else {
         show_error('Server timezone is KO: '.$timezone);
