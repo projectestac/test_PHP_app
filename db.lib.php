@@ -1,6 +1,13 @@
 <?php
 
 function checkMySQL ($dbhost, $dbport, $dbname, $user, $dbpass, $table) {
+
+    if (empty($dbhost)) {
+        $dbhost = 'localhost';
+    }
+    if (empty($dbport)) {
+        $dbport = 3306;
+    }
     show_header('checkMySQL '.$dbname);
     $con = new mysqli($dbhost, $user, $dbpass, $dbname, $dbport);
     if ($con->connect_error) {

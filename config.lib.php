@@ -60,7 +60,6 @@ function sp_get_ldap_config($env) {
         $ldapconfig->bind_dn = get_site_option('xtec_ldap_base_dn');
         $ldapconfig->bind_pw = "";
         $ldapconfig->contexts = $ldapconfig->bind_dn;
-        $ldapconfig->nif_attribute = 'nif';
         $ldapconfig->user_attribute = 'cn';
         if (!empty($ldapconfig->host_url)) {
             show_success('WordPress ldap config taken');
@@ -74,7 +73,6 @@ function sp_get_ldap_config($env) {
         $ldapconfig->bind_dn = ModUtil::getVar('AuthLDAP', 'authldap_basedn');
         $ldapconfig->bind_pw = "";
         $ldapconfig->contexts = ModUtil::getVar('AuthLDAP', 'authldap_searchdn');
-        $ldapconfig->nif_attribute = 'nif';
         $ldapconfig->user_attribute = ModUtil::getVar('AuthLDAP', 'authldap_searchattr');
         if (!empty($ldapconfig->host_url)) {
             show_success('Zikula ldap config taken');

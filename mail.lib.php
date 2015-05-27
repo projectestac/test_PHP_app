@@ -1,6 +1,5 @@
 <?php
 
-
 function test_mail($app, $mail, $env='INT') {
     if (!empty($_REQUEST['mail'])) {
         $mail = $_REQUEST['mail'];
@@ -28,6 +27,7 @@ function test_mail($app, $mail, $env='INT') {
 final class testapp_mail {
 
     private $sender;
+    private $log;
     private $logfile;
     private $app;
 
@@ -50,11 +50,17 @@ final class testapp_mail {
         require_once($dir.'mailsender.class.php');
         require_once($dir.'message.class.php');
 
-        $this->logfile = __DIR__.'/log/'.$this->app.'.log';
-        show_success('Logfile '.$this->logfile);
+        if (!empty($_REQUEST['logmail'])) {
+            $this->logfile = __DIR__.'/log/'.$this->app.'.log';
+            show_success('Logfile '.$this->logfile);
+            $this->log = 1;
+        } else {
+            $this->log = 0;
+            $this->logfile = "";
+        }
         // Load the mailsender
         try {
-            $this->sender = new mailsender($this->app, 'noreply@agora.xtec.cat', 'educacio', $this->env, 1, 1, $this->logfile);
+            $this->sender = new mailsender($this->app, 'noreply@agora.xtec.cat', 'educacio', $this->env, $this->log, $this->log, $this->logfile);
         } catch (Exception $e) {
             show_error('ERROR: Cannot initialize mailsender, no mail will be send. <br> '.$e->getMessage());
             $this->sender = false;
@@ -72,7 +78,7 @@ final class testapp_mail {
             $newline = '<br/>';
         }
         // Load the message
-        $message = new message($format, 1, 1, $this->logfile);
+        $message = new message($format, $this->log, $this->log, $this->logfile);
         $message->set_to(array($mail));
         $message->set_subject('['.$this->app.'] Prova des de superworks format '.$format);
         $message->set_bodyContent("S'està enviant un correu des de FMO servei $this->app entorn $this->env $newline L'hora actual és ".time()."$newline Caràcters especials: àíòúèçÇñÑ");

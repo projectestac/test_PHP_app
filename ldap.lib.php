@@ -78,7 +78,6 @@ function test_ldap($username, $env = 'INT') {
     $binddn = $ldapconfig->bind_dn;
     $bindpw = $ldapconfig->bind_pw;
     $contexts = $ldapconfig->contexts;
-    $nifattribute = $ldapconfig->nif_attribute;
     $userattribute = $ldapconfig->user_attribute;
     $binddnxtec = $userattribute . '=' . $username . ',' . $binddn;
     $ldap = testapp_ldap::instance_ldap($host, $version, 'default', $binddnxtec, $userpwd);
