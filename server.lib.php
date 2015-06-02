@@ -1,5 +1,35 @@
 <?php
 
+function test_memcache() {
+    show_header('test_memcache');
+    try {
+        $meminstance = new Memcache();
+        $meminstance->pconnect('localhost', 11211);
+        $meminstance->set('test_memcache', 'Memcache Ok', 0, 600);
+        $result = $meminstance->get('test_memcache');
+        if ($result) {
+            show_success($result);
+        } else {
+            show_error('Memcache is not working');
+        }
+    } catch (Exception $e) {
+        show_error('Error memcache '. $e->getMessage());
+        return;
+    }
+}
+
+function test_session() {
+    show_header('test_session');
+    @session_start();
+
+    if (isset($_SESSION['test'])) {
+        show_success($_SESSION['test']);
+    } else {
+        show_warning('Session not initialized, F5 to test');
+        $_SESSION['test'] = 'Session OK';
+    }
+}
+
 function test_cli($path = "") {
     show_header('test_cli');
     echo 'Variable PATH: '.$_SERVER['PATH'].'</br>';
