@@ -1,8 +1,14 @@
 <?php
 
-function test_gicar($username) {
+function test_gicar($username = false) {
+
     if (!empty($_REQUEST['gicarusername'])) {
         $username = $_REQUEST['gicarusername'];
+    } else if (!empty($_REQUEST['user'])) {
+        $username = $_REQUEST['user'];
+    } else if (!$username) {
+        show_warning('User not set, using agora');
+        $username = 'agora';
     }
     $userpwd = !empty($_REQUEST['gicaruserpwd']) ? $_REQUEST['gicaruserpwd'] : sp_get_gicar_default_password();
 
@@ -61,9 +67,14 @@ function test_gicar($username) {
     $ldap->close();
 }
 
-function test_ldap($username, $env = 'INT') {
+function test_ldap($username = false, $env = 'INT') {
     if (!empty($_REQUEST['ldapusername'])) {
         $username = $_REQUEST['ldapusername'];
+    } else if (!empty($_REQUEST['user'])) {
+        $username = $_REQUEST['user'];
+    } else if (!$username) {
+        show_warning('User not set, using agora');
+        $username = 'agora';
     }
     $userpwd = !empty($_REQUEST['ldapuserpwd']) ? $_REQUEST['ldapuserpwd'] : sp_get_ldap_default_password();
 

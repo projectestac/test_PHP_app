@@ -1,9 +1,16 @@
 <?php
 
-function test_mail($app, $mail, $env='INT') {
+function test_mail($app, $mail = false, $env='INT') {
+
     if (!empty($_REQUEST['mail'])) {
         $mail = $_REQUEST['mail'];
+    } else if (!empty($_REQUEST['user'])) {
+        $mail = $_REQUEST['user'].'@xtec.cat';
+    } else if (!$mail) {
+        show_warning('User not set, using agora');
+        $mail = 'agora@xtec.cat';
     }
+
     show_header('Test MAIL '.$mail);
 
     try {
