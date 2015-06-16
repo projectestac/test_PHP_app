@@ -11,7 +11,7 @@ function checkMySQL ($dbhost, $dbport, $dbname, $user, $dbpass, $table) {
     show_header('checkMySQL '.$dbname);
     $con = new mysqli($dbhost, $user, $dbpass, $dbname, $dbport);
     if ($con->connect_error) {
-        $error = $this->connection->connect_error;
+        $error = $con->connect_error;
         show_error('Error checkMySQL'. $error);
         return;
     }
