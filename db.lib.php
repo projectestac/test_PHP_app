@@ -1,6 +1,6 @@
 <?php
 
-function checkMySQL ($dbhost, $dbport, $dbname, $user, $dbpass, $table) {
+function checkMySQL ($dbhost, $dbport, $dbname, $user, $dbpass, $table = '') {
 
     if (empty($dbhost)) {
         $dbhost = 'localhost';
@@ -16,13 +16,17 @@ function checkMySQL ($dbhost, $dbport, $dbname, $user, $dbpass, $table) {
         return;
     }
 
-    $sql = 'SELECT * FROM `'.$table .'` LIMIT 0, 1';
+    if (!empty($table)) {
+        $sql = 'SELECT * FROM `'.$table .'` LIMIT 0, 1';
 
-    $pid = $con->query($sql);
-    if (!empty($pid)) {
-        show_success('Connected to '.$dbname);
+        $pid = $con->query($sql);
+        if (!empty($pid)) {
+            show_success('Connected to DB ' . $dbname . ' - table ' . $table);
+        } else {
+            show_error('Error connecting to DB ' . $dbname . ' ' . $con->error);
+        }
     } else {
-        show_error('Error connecting to '.$dbname.' '.$con->error);
+        show_success('Connected to DB ' . $dbname . '. No table checked');
     }
 
     $con->close();
