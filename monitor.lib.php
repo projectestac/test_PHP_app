@@ -1525,7 +1525,7 @@ function moodle_session_files($multi=false,$agoraf=false){
 		global $agora;
 		
 		$php_temp_dir = $agora['server']['root'].$agora['server']['docs']."moodle2/".$agora['server']['userprefix']."1/temp/";
-		$php_tmp = $agora['server']['root'].$agora['server']['docs']."moodle2/".$agora['server']['userprefix']."1/temp/".gethostname()."phpfiles.log";
+    $php_tmp = $agora['server']['root'].$agora['moodle2']['datadir']."/".$agora['server']['userprefix']."1/temp/".gethostname()."phpfiles.log";
 	} else {
 		
 		global $CFG;
