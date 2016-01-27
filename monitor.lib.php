@@ -135,7 +135,7 @@ function last_exec($file2open, $file2openLK, $current_date, $interval)
                 $execution_data = fgets($fp);
                 fclose ($fp);
                 //Launch CLI execution
-                
+                putenv("TNS_ADMIN=".$_ENV["TNS_ADMIN"]);
                 exec("nohup ".$phpbin." ".$scriptname." -c > /dev/null 2>&1 & echo $!");
                 return $execution_data;
         }

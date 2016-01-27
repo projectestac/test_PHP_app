@@ -27,8 +27,8 @@ switch (APP) {
 		break;
 
 	case 'agora':
-		$config = 'config/env-config.php';
-		$config2 = 'config/dblib-mysql.php';
+		$config = __DIR__.'/../config/env-config.php';
+		$config2 = __DIR__.'/../config/dblib-mysql.php';
 		$isagora = TRUE;
 		break;
 
@@ -44,7 +44,8 @@ switch (APP) {
 		break;
 
 	default:
-		$config = __DIR__ . '/../config.php';
+		$config = __DIR__.'/../config/env-config.php';
+		$config2 = __DIR__.'/../config/dblib-mysql.php';
 		break;
 }
 
@@ -77,11 +78,16 @@ if ($special == 'blocs') {
 			$_SERVER['HTTP_HOST'] = 'blocs.xtec.cat';
 			break;
 	}
+} elseif ($isagora) {
+	global $CFG;
+	$CFG->dbhost = $agora['admin']['host'];
+	$CFG->dbuser = $agora['nodes']['username'];
+	$CFG->dbpass = $agora['nodes']['userpwd'];
 }
 
 
 //CLI execution for background process:
-if (isset($_SERVER['argv']) && $_SERVER['argv'][1] == '-c') {
+if (isset($_SERVER['argv'][1]) && $_SERVER['argv'][1] == '-c') {
        global $agora;
        $result = moodle_session_DB($agora, 'moodle2', 'm2','oracle',$file2open);
 	   echo $result;
@@ -98,7 +104,9 @@ if (md5($token)!= '38a1c2f3f1fe1155cee4d6cf93139a49') {
 }
 //validate host
 $host = empty($request['host'])?'localhost':$request['host'];
-
+if ($isagora) {
+	$CFG->dbhost = $host=='localhost' ? $agora['admin']['host']:$host;
+}
 //monitor selector
 switch ($request['type']) {
 	case 'memcache':
