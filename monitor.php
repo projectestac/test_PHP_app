@@ -80,6 +80,7 @@ if ($special == 'blocs') {
 	}
 } elseif ($isagora) {
 	global $CFG;
+	$CFG = new stdClass();
 	$CFG->dbhost = $agora['admin']['host'];
 	$CFG->dbuser = $agora['nodes']['username'];
 	$CFG->dbpass = $agora['nodes']['userpwd'];
