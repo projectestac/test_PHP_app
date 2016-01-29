@@ -1521,20 +1521,16 @@ function debug($val) {
 }
 
 function moodle_session_files($multi=false,$agoraf=false){
-	if ($agoraf){
-		global $agora;
-		
-		$php_temp_dir = $agora['server']['root'].$agora['server']['docs']."moodle2/".$agora['server']['userprefix']."1/temp/";
-    $php_tmp = $agora['server']['root'].$agora['moodle2']['datadir']."/".$agora['server']['userprefix']."1/temp/".gethostname()."phpfiles.log";
-	} else {
-		
+  if ($agoraf){
+    global $agora;
+
+    $php_temp_dir = $agora['server']['root'].$agora['moodle2']['datadir']."/".$agora['server']['userprefix']."1/temp/";
+    $php_tmp = $php_temp_dir.gethostname()."phpfiles.log";
+} else {
 		global $CFG;
-		
-		
+
 		$php_temp_dir = $CFG->dataroot."/temp/";
 		$php_tmp = $php_temp_dir.gethostname()."phpfiles.log";
-		
-		
 	}
 	$prefix_sess = "sess_";
 	$path_sess = session_save_path();
