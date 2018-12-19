@@ -27,7 +27,7 @@ function sp_get_proxy() {
 
 function sp_get_gicar_config() {
     if (function_exists('get_config') ) {
-        $gicarconfig = get_config('auth/odissea');
+        $gicarconfig = get_config('auth_odissea');
         if (!empty($gicarconfig->gicar_host_url)) {
             return $gicarconfig;
         }
@@ -40,7 +40,7 @@ function sp_get_gicar_config() {
 
 function sp_get_ldap_config($env) {
     if (function_exists('get_config')) {
-        $ldapconfig = get_config('auth/odissea');
+        $ldapconfig = get_config('auth_odissea');
         if (!empty($ldapconfig->host_url)) {
             show_success('Moodle odissea config taken');
             return $ldapconfig;
@@ -109,5 +109,5 @@ function sp_get_ldap_default_password() {
 }
 
 function sp_get_gicar_default_password() {
-    return '12345678';
+    return '12345678a';
 }
