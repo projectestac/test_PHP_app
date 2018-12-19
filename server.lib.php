@@ -18,6 +18,24 @@ function test_memcache() {
     }
 }
 
+function test_memcached() {
+    show_header('test_memcached');
+    try {
+        $meminstance = new Memcached();
+        $meminstance->addServer('localhost', 11211);
+        $meminstance->set('test_memcached', 'Memcached Ok', 0, 600);
+        $result = $meminstance->get('test_memcached');
+        if ($result) {
+            show_success($result);
+        } else {
+            show_error('Memcached is not working');
+        }
+    } catch (Exception $e) {
+        show_error('Error memcached '. $e->getMessage());
+        return;
+    }
+}
+
 function test_session() {
     show_header('test_session');
     @session_start();
@@ -83,7 +101,7 @@ function test_server($correct_timezone='Europe/Madrid') {
     show_header('test_server');
     show_object($_SERVER);
 
-    // Check timezone and date
+    // Check timezone and date.
     $timezone = date_default_timezone_get();
     if ($timezone === $correct_timezone) {
         show_success('Server timezone is OK: '.$timezone);
